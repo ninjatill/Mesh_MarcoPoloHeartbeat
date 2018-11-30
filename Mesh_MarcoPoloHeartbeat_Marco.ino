@@ -21,7 +21,7 @@ bool cloudLost = false;
 unsigned long cloudLostTime = 0;
 unsigned long cloudResetTimeout = 600000; //10 min = 600000
 
-const char version[] = "MeshMarcoPoloHeartbeat_Marco 0.3";
+const char version[] = "Mesh_MarcoPoloHeartbeat_Marco_v0.3";
 
 
 void setup() {
