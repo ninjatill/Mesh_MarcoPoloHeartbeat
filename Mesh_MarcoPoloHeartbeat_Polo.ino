@@ -14,7 +14,7 @@ bool meshLost = false;
 unsigned long meshLostTime = 0;
 unsigned long meshResetTimeout = 600000;  //10 min = 600000
 
-const char version[] = "MeshMarcoPoloHeartbeat_Polo 0.3";
+const char version[] = "Mesh_MarcoPoloHeartbeat_Polo_v0.3";
 
 
 void setup() {
