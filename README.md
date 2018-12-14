@@ -11,7 +11,7 @@ There are 2 sides to the code; Marco and Polo. The Marco code is normally flashe
 
     Example Losant Dashboard for tracking stability over time:
     
-    ![Losant Dashboard](/Losant_StarshipTallahassee_20181214.jpg)
+    ![Losant Dashboard](./Losant_StarshipTallahassee_20181214.jpg)
 
 ### Changelog
 #### v0.3.1
