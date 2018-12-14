@@ -8,8 +8,10 @@ There are 2 sides to the code; Marco and Polo. The Marco code is normally flashe
 ### Changelog
 #### v0.3.1
 + Added method for selecting external antenna during startup if D4 is high. To use: power down device, attach external antenna to "BT" u.Fl connector, connect D4 to 3.3V, power device back up.
-+ ##### Marco - Moved cataloging of responses outside of the subscribe callback. This was to ensure that heartbeats were not being missed due to cataloging. Now, the subscribe callback sets flags, records data and exits as fast as possible.
-+ ##### Polo - Added Particle.variable() for "version". This was to allow you to request the variable from console.particle.io to verify the device is online, contactable, and verify the user firmware version. Increment the version number before flashing the device that way you can verify the flash was received and applied to the device.
++ ##### Marco 
+    Moved cataloging of responses outside of the subscribe callback. This was to ensure that heartbeats were not being missed due to cataloging. Now, the subscribe callback sets flags, records data and exits as fast as possible.
++ ##### Polo 
+    Added Particle.variable() for "version". This was to allow you to request the variable from console.particle.io to verify the device is online, contactable, and verify the user firmware version. Increment the version number before flashing the device that way you can verify the flash was received and applied to the device.
 
 #### v0.3.2
 + Added @peekay123's method for creating a device info variable.
