@@ -60,6 +60,7 @@ void setup() {
         SelectExternalMeshAntenna();
     }
 
+    waitUntil(Mesh.ready); //Added to compensate for bug in RC27 causing SOS 10 if Mesh.subscribe is called before the mesh is ready.
     Mesh.subscribe("Polo", ProcessBeat);
     
     ResetReportingNodes();
