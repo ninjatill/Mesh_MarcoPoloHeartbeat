@@ -43,6 +43,7 @@ void setup() {
         SelectExternalMeshAntenna();
     }
     
+    waitUntil(Mesh.ready); //Added for bug in RC27 causing SOS 10 Mesh.subcribe if mesh is not ready. 
     Mesh.subscribe("Marco", ProcessBeat);
 }
 
