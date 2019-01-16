@@ -17,6 +17,7 @@ SYSTEM_THREAD(ENABLED);
 struct acknowledgements {
     unsigned long retryInterval = 2000; 
     unsigned long uid = 0;
+    unsigned long delay = 1000;         //Delay before acknowledging the Polo nodes. This may prevent inbound/outboud packet collissions.
     uint8_t retryCount = 0;
     uint8_t retryProcessed = 0;
     uint8_t index = 0;
@@ -131,7 +132,7 @@ void loop() {
     }
     
     //Acknowledge each Polo resonse if enabled.
-    if (ack.retryInterval > 0) {
+    if ( (ack.retryInterval > 0) && (millis() - lastBeatMillis > ack.delay) ) {
         while (ack.index < reportingNodesCount) {
             Serial.printlnf("Ack: %s", reportingNodes[ack.index]);
             Mesh.publish("PoloAck", reportingNodes[ack.index++]);
