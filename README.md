@@ -23,3 +23,21 @@ There are 2 sides to the code; Marco and Polo. The Marco code is normally flashe
 
 #### v0.3.2
 + Added @peekay123's method for creating a device info variable.
+
+#### v0.4.3
++ Implemented an "acknowledgement" system in an attempt to get heartbeat reliability up to 100%. Prior to v0.4.3, it seems that at least a few times an hour, there is a missed heartbeat from one of the node. One of the possible theories is that there is a socket collision at the Marco node (i.e. messages from more than one Polo node arrive at the Marco node at the exact same millisecond.)
+
++ With v0.3.x, I was seeing that about 99%+ reliability. That high reliability is probably adequate in most situations. After all, you could probably wait until several heartbeats are missed, for an individual node, before sending some type of alert. I have been contemplating how to get up to 100% and I came up with this acknowledgement system. The v0.4.x code should be backwards compatible with nodes running v0.3.x. However, a node running v0.3.x will not be aware of the acknowledgement system and may create superfluous traffic on the mesh.
+
++ The new traffic flow is:
+1. A “Marco” event is published from Marco node… now there is event data which includes an unique ID (UID) for the “Marco” attempt, the current retry count (starts at 0, increments by one on each subsequent retry), and the retry interval timeout.
+2. The Polo node responds to the Marco event exactly as before (with a “Polo” event).
+3. The Marco node catalogs each response and then sends a “PoloAck” event with the device ID of the Polo node being acknowledged. This step doubles the amount of mesh network traffic.
+4. The Polo node accepts the PoloAck event and sets a flag so that it will not respond to any subsequent Marco messages with the same UID.
+5. The Marco node will check if all nodes have reported at the ack.retryInterval. If the number of reporting nodes is less than the number of known nodes, another “Marco” event is published. The UID is kept the same but the ack.retryCount is incremented by one. This step repeats every time the retryInterval is reached and the reporting vs known node counts do not match.
+
+#### v0.4.8
++ Adds configurable pins using #define statements for both Marco and Polo nodes.
++ Implements sleep on the Polo nodes. If enabled, the Polo node will sleep for the remainder of the heartbeat. It will wakeup a set number of seconds prior to the next expected heartbeat (controlled by the variable preHeartbeatWakeupBuffer). There are 2 ways to enable the sleep:
+1. On the Marco node, set the MarcoPolo Sleep Select (MPSS) pin HIGH to enable sleep for all Polo nodes on the mesh. By default, the MPSS is pin D3. When enabled, the Marco adds parameters onto the Marco event payload so the Polo node is aware of the heartbeat interval as well as the preHeartbeatWakupBuffer settings.
+2. On the Polo node, set the MarcoPolo Sleet Select (MPSS) pin HIGH to enable sleep for just a single Polo node. Since the Polo node does not receive the sleep settings from the Marco event payload, the heartbeat interval and the preHeartbeatWakeupBuffer settings will need to be hard-coded into the Polo.ino code.
