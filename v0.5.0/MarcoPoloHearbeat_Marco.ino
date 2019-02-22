@@ -60,7 +60,7 @@ unsigned long sentRetries = 0;
 unsigned long responseMissedCount = 0;
 
 //Device info/Version variables.
-const char version[] = "Mesh_MarcoPoloHeartbeat_Marco_v0.4.8";
+const char version[] = "Mesh_MarcoPoloHeartbeat_Marco_v0.5.0";
 char deviceInfo[120];  //adjust size as required
 char msg[100];  //Buffer for creating publish messages.
 
