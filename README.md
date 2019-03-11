@@ -36,8 +36,8 @@ There are 2 sides to the code; Marco and Polo. The Marco code is normally flashe
 4. The Polo node accepts the PoloAck event and sets a flag so that it will not respond to any subsequent Marco messages with the same UID.
 5. The Marco node will check if all nodes have reported at the ack.retryInterval. If the number of reporting nodes is less than the number of known nodes, another “Marco” event is published. The UID is kept the same but the ack.retryCount is incremented by one. This step repeats every time the retryInterval is reached and the reporting vs known node counts do not match.
 
-#### v0.4.8
+#### v0.5.0 (formerly v0.4.8)
 + Adds configurable pins using #define statements for both Marco and Polo nodes.
 + Implements sleep on the Polo nodes. If enabled, the Polo node will sleep for the remainder of the heartbeat. It will wakeup a set number of seconds prior to the next expected heartbeat (controlled by the variable preHeartbeatWakeupBuffer). There are 2 ways to enable the sleep:
 1. On the Marco node, set the MarcoPolo Sleep Select (MPSS) pin HIGH to enable sleep for all Polo nodes on the mesh. By default, the MPSS is pin D3. When enabled, the Marco adds parameters onto the Marco event payload so the Polo node is aware of the heartbeat interval as well as the preHeartbeatWakupBuffer settings.
-2. On the Polo node, set the MarcoPolo Sleet Select (MPSS) pin HIGH to enable sleep for just a single Polo node. Since the Polo node does not receive the sleep settings from the Marco event payload, the heartbeat interval and the preHeartbeatWakeupBuffer settings will need to be hard-coded into the Polo.ino code.
+2. On the Polo node, set the MarcoPolo Sleet Select (MPSS) pin HIGH to enable sleep for just a single Polo node. Since the Polo node does not receive the sleep settings from the Marco event payload, the heartbeat interval and the preHeartbeatWakeupBuffer settings will need to be hard-coded into the Polo.ino code. Also, removed all cloud functions from the Polo node becuase they are useless when sleeping (also removed to try and troubleshoot some inconsistent sleep behavior.)
